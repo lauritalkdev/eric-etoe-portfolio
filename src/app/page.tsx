@@ -4,9 +4,12 @@ export default function Home() {
       {/* Hero Section */}
       <section id="home" className="pt-32 pb-20 px-6">
         <div className="container mx-auto max-w-4xl text-center">
-          <div className="w-48 h-48 mx-auto mb-8 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full flex items-center justify-center">
-            {/* Profile Image Placeholder */}
-            <span className="text-white text-lg font-semibold">Your Photo</span>
+          <div className="w-48 h-48 mx-auto mb-8 rounded-full overflow-hidden border-4 border-cyan-400/20">
+            <img 
+              src="/profile-photo.png" 
+              alt="Ebong Eric Etoe - Professional Photo"
+              className="w-full h-full object-cover"
+            />
           </div>
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
             Ebong Eric <span className="text-cyan-400">Etoe</span>
@@ -219,7 +222,7 @@ export default function Home() {
                   </div>
                   <div>
                     <p className="font-semibold">Email</p>
-                    <p className="text-blue-200">your.email@domain.com</p>
+                    <p className="text-blue-200">lauritalkdev@gmail.com</p>
                   </div>
                 </div>
                 <div className="flex space-x-4 pt-4">
