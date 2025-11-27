@@ -47,14 +47,14 @@ export default function RootLayout({
             </div>
           </div>
 
-          {/* Mobile Menu Dropdown - Updated with 75% transparency */}
-          <div id="mobile-menu" className="md:hidden hidden bg-slate-900/25 backdrop-blur-md border-b border-slate-600/50">
-            <div className="container mx-auto px-6 py-4 flex flex-col space-y-4">
-              <a href="#home" className="text-cyan-400 hover:text-cyan-300 transition py-2 text-lg font-medium">Home</a>
-              <a href="#about" className="text-cyan-400 hover:text-cyan-300 transition py-2 text-lg font-medium">About</a>
-              <a href="#experience" className="text-cyan-400 hover:text-cyan-300 transition py-2 text-lg font-medium">Experience</a>
-              <a href="#services" className="text-cyan-400 hover:text-cyan-300 transition py-2 text-lg font-medium">Services</a>
-              <a href="#contact" className="text-cyan-400 hover:text-cyan-300 transition py-2 text-lg font-medium">Contact</a>
+          {/* Mobile Menu Dropdown - Perfect 75% transparency */}
+          <div id="mobile-menu" className="md:hidden hidden absolute top-full left-0 w-full bg-slate-900/75 backdrop-blur-lg border-b border-slate-600/40">
+            <div className="container mx-auto px-6 py-6 flex flex-col space-y-5">
+              <a href="#home" className="text-cyan-400 hover:text-cyan-300 transition py-2 text-lg font-semibold">Home</a>
+              <a href="#about" className="text-cyan-400 hover:text-cyan-300 transition py-2 text-lg font-semibold">About</a>
+              <a href="#experience" className="text-cyan-400 hover:text-cyan-300 transition py-2 text-lg font-semibold">Experience</a>
+              <a href="#services" className="text-cyan-400 hover:text-cyan-300 transition py-2 text-lg font-semibold">Services</a>
+              <a href="#contact" className="text-cyan-400 hover:text-cyan-300 transition py-2 text-lg font-semibold">Contact</a>
             </div>
           </div>
         </nav>
@@ -63,24 +63,29 @@ export default function RootLayout({
         {/* Mobile Menu Script */}
         <script dangerouslySetInnerHTML={{
           __html: `
-            document.getElementById('mobile-menu-button').addEventListener('click', function() {
-              const menu = document.getElementById('mobile-menu');
-              menu.classList.toggle('hidden');
-            });
-            
-            // Close menu when clicking on links
-            document.querySelectorAll('#mobile-menu a').forEach(link => {
-              link.addEventListener('click', function() {
-                document.getElementById('mobile-menu').classList.add('hidden');
-              });
-            });
-
-            // Close menu when clicking outside
-            document.addEventListener('click', function(event) {
-              const menu = document.getElementById('mobile-menu');
-              const button = document.getElementById('mobile-menu-button');
-              if (!menu.contains(event.target) && !button.contains(event.target)) {
-                menu.classList.add('hidden');
+            document.addEventListener('DOMContentLoaded', function() {
+              const menuButton = document.getElementById('mobile-menu-button');
+              const mobileMenu = document.getElementById('mobile-menu');
+              
+              if (menuButton && mobileMenu) {
+                menuButton.addEventListener('click', function(e) {
+                  e.stopPropagation();
+                  mobileMenu.classList.toggle('hidden');
+                });
+                
+                // Close menu when clicking on links
+                document.querySelectorAll('#mobile-menu a').forEach(link => {
+                  link.addEventListener('click', function() {
+                    mobileMenu.classList.add('hidden');
+                  });
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', function(e) {
+                  if (!mobileMenu.contains(e.target) && !menuButton.contains(e.target)) {
+                    mobileMenu.classList.add('hidden');
+                  }
+                });
               }
             });
           `
