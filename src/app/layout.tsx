@@ -47,14 +47,14 @@ export default function RootLayout({
             </div>
           </div>
 
-          {/* Mobile Menu Dropdown */}
-          <div id="mobile-menu" className="md:hidden hidden bg-slate-900/95 backdrop-blur-sm border-b border-slate-700">
+          {/* Mobile Menu Dropdown - Updated with 75% transparency */}
+          <div id="mobile-menu" className="md:hidden hidden bg-slate-900/25 backdrop-blur-md border-b border-slate-600/50">
             <div className="container mx-auto px-6 py-4 flex flex-col space-y-4">
-              <a href="#home" className="text-cyan-400 hover:text-cyan-300 transition py-2">Home</a>
-              <a href="#about" className="text-cyan-400 hover:text-cyan-300 transition py-2">About</a>
-              <a href="#experience" className="text-cyan-400 hover:text-cyan-300 transition py-2">Experience</a>
-              <a href="#services" className="text-cyan-400 hover:text-cyan-300 transition py-2">Services</a>
-              <a href="#contact" className="text-cyan-400 hover:text-cyan-300 transition py-2">Contact</a>
+              <a href="#home" className="text-cyan-400 hover:text-cyan-300 transition py-2 text-lg font-medium">Home</a>
+              <a href="#about" className="text-cyan-400 hover:text-cyan-300 transition py-2 text-lg font-medium">About</a>
+              <a href="#experience" className="text-cyan-400 hover:text-cyan-300 transition py-2 text-lg font-medium">Experience</a>
+              <a href="#services" className="text-cyan-400 hover:text-cyan-300 transition py-2 text-lg font-medium">Services</a>
+              <a href="#contact" className="text-cyan-400 hover:text-cyan-300 transition py-2 text-lg font-medium">Contact</a>
             </div>
           </div>
         </nav>
@@ -73,6 +73,15 @@ export default function RootLayout({
               link.addEventListener('click', function() {
                 document.getElementById('mobile-menu').classList.add('hidden');
               });
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', function(event) {
+              const menu = document.getElementById('mobile-menu');
+              const button = document.getElementById('mobile-menu-button');
+              if (!menu.contains(event.target) && !button.contains(event.target)) {
+                menu.classList.add('hidden');
+              }
             });
           `
         }} />
