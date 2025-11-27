@@ -40,15 +40,19 @@ export default function Home() {
           </h2>
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
             <div>
-              <div className="w-full h-64 md:h-80 bg-slate-700/50 rounded-xl flex items-center justify-center">
-                <span className="text-slate-400 text-sm md:text-base">Personal/Lifestyle Photo</span>
+              <div className="w-full h-64 md:h-80 rounded-xl overflow-hidden border-2 border-cyan-400/20">
+                <img 
+                  src="/about-photo.jpg" 
+                  alt="Ebong Eric Etoe - Personal/Lifestyle Photo"
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
             <div className="space-y-4 md:space-y-6">
               <p className="text-base md:text-lg leading-relaxed">
                 Born in 1991, my journey from education to technology has been driven by 
                 continuous learning and adaptation. Starting as a teacher, I developed 
-                strong leadership and communication skills that later proved invaluable 
+                strong leadership and communication skills that later proved valuable 
                 in the crypto and tech world.
               </p>
               <p className="text-base md:text-lg leading-relaxed">
