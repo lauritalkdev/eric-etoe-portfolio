@@ -1,14 +1,63 @@
+'use client'
+
+import Image from 'next/image'
+import { useState, FormEvent } from 'react'
+
 export default function Home() {
+  const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
+  const [formMessage, setFormMessage] = useState('')
+  const [showComingSoon, setShowComingSoon] = useState(false)
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setFormStatus('submitting')
+    setFormMessage('')
+
+    const form = e.currentTarget
+    const formData = new FormData(form)
+    
+    try {
+      const response = await fetch('https://formspree.io/f/xqarbyoy', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+
+      if (response.ok) {
+        setFormStatus('success')
+        setFormMessage('Thank you! Your message has been sent successfully. I will get back to you soon.')
+        form.reset()
+      } else {
+        setFormStatus('error')
+        setFormMessage('Something went wrong. Please try again or email me directly at lauritalkdev@gmail.com')
+      }
+    } catch (error) {
+      setFormStatus('error')
+      setFormMessage('Network error. Please check your connection and try again.')
+    }
+  }
+
+  const handleViewWork = () => {
+    setShowComingSoon(true)
+    // Auto-hide the message after 5 seconds
+    setTimeout(() => setShowComingSoon(false), 5000)
+  }
+
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-900 to-blue-950 text-white">
       {/* Hero Section */}
       <section id="home" className="pt-28 md:pt-32 pb-16 md:pb-20 px-4 md:px-6">
         <div className="container mx-auto max-w-4xl text-center">
           <div className="w-32 h-32 md:w-48 md:h-48 mx-auto mb-6 md:mb-8 rounded-full overflow-hidden border-4 border-cyan-400/20">
-            <img 
+            <Image 
               src="/profile-photo.png" 
-              alt="Ebong Eric Etoe - Professional Photo"
+              alt="Ebong Eric Etoe - Professional Headshot"
               className="w-full h-full object-cover"
+              width={192}
+              height={192}
+              priority
             />
           </div>
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6">
@@ -21,14 +70,55 @@ export default function Home() {
             Co-Founder & Lead Developer at Luminix, building AI-powered Web3 solutions 
             to solve real-world problems.
           </p>
+          
+          {/* Coming Soon Modal */}
+          {showComingSoon && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+              <div className="bg-slate-800/90 backdrop-blur-sm p-8 rounded-xl max-w-md w-full border border-cyan-400/30 animate-fadeIn">
+                <div className="text-center">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-cyan-500/20 flex items-center justify-center">
+                    <svg className="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-2xl font-bold mb-2">Coming Soon!</h3>
+                  <p className="text-blue-200 mb-6">
+                    My portfolio section is currently under construction. I&apos;m working on showcasing my latest Web3 and AI projects.
+                  </p>
+                  <button
+                    onClick={() => setShowComingSoon(false)}
+                    className="bg-cyan-600 hover:bg-cyan-700 px-6 py-2 rounded-lg font-semibold transition-colors"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
           <div className="mt-8 md:mt-10 flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
-            <button className="bg-cyan-600 hover:bg-cyan-700 px-6 md:px-8 py-3 rounded-lg font-semibold transition-all text-sm md:text-base">
+            <button 
+              onClick={handleViewWork}
+              className="bg-cyan-600 hover:bg-cyan-700 px-6 md:px-8 py-3 rounded-lg font-semibold transition-all text-sm md:text-base text-center"
+            >
               View My Work
             </button>
-            <button className="border border-cyan-400 text-cyan-400 hover:bg-cyan-400/10 px-6 md:px-8 py-3 rounded-lg font-semibold transition-all text-sm md:text-base">
+            <a href="#contact" className="border border-cyan-400 text-cyan-400 hover:bg-cyan-400/10 px-6 md:px-8 py-3 rounded-lg font-semibold transition-all text-sm md:text-base text-center">
               Contact Me
-            </button>
+            </a>
           </div>
+
+          {/* Inline Coming Soon Notification */}
+          {showComingSoon && (
+            <div className="mt-6 animate-fadeIn">
+              <div className="inline-flex items-center gap-2 bg-cyan-500/20 border border-cyan-400/30 px-4 py-2 rounded-lg">
+                <svg className="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span className="text-sm text-cyan-300">Portfolio section coming soon!</span>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
@@ -39,14 +129,34 @@ export default function Home() {
             About <span className="text-cyan-400">Me</span>
           </h2>
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-            <div>
-              <div className="w-full h-64 md:h-80 rounded-xl overflow-hidden border-2 border-cyan-400/20">
-                <img 
-                  src="/about-photo.jpg" 
-                  alt="Ebong Eric Etoe - Personal/Lifestyle Photo"
+            <div className="space-y-4">
+              {/* Image 1: Professional/Conference Setting */}
+              <div className="w-full h-48 md:h-56 rounded-xl overflow-hidden border-2 border-cyan-400/20">
+                <Image 
+                  src="/about-professional.jpg" 
+                  alt="Ebong Eric Etoe speaking at Dubai Crypto Conference 2022"
                   className="w-full h-full object-cover"
+                  width={400}
+                  height={224}
                 />
               </div>
+              <p className="text-sm text-center text-blue-300">
+                Receiving Award at a Dubai Crypto Conference
+              </p>
+              
+              {/* Image 2: Personal/Casual Setting */}
+              <div className="w-full h-48 md:h-56 rounded-xl overflow-hidden border-2 border-cyan-400/20">
+                <Image 
+                  src="/about-personal.jpg" 
+                  alt="Ebong Eric Etoe working on AI/Web3 development"
+                  className="w-full h-full object-cover"
+                  width={400}
+                  height={224}
+                />
+              </div>
+              <p className="text-sm text-center text-blue-300">
+                Receiving Inspiration from nature at Miracle Garden, Dubai
+              </p>
             </div>
             <div className="space-y-4 md:space-y-6">
               <p className="text-base md:text-lg leading-relaxed">
@@ -56,7 +166,7 @@ export default function Home() {
                 in the crypto and tech world.
               </p>
               <p className="text-base md:text-lg leading-relaxed">
-                My crypto journey began in 2017, and since then I've evolved from a 
+                My crypto journey began in 2017, and since then I&apos;ve evolved from a 
                 curious enthusiast to a Web3 developer and AI innovator, with proven 
                 success in building teams and delivering million-dollar results.
               </p>
@@ -65,6 +175,14 @@ export default function Home() {
                 <p className="text-base md:text-lg leading-relaxed">
                   I believe in leveraging cutting-edge technology—blockchain and AI—to 
                   create practical solutions that empower people and transform industries.
+                </p>
+              </div>
+              <div className="pt-2 md:pt-4">
+                <h3 className="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-cyan-400">International Experience</h3>
+                <p className="text-base md:text-lg leading-relaxed">
+                  I&apos;ve attended and spoken at crypto conferences in Dubai (2021, 2022, 2023), 
+                  connecting with global blockchain innovators and staying at the forefront 
+                  of Web3 technology.
                 </p>
               </div>
             </div>
@@ -210,10 +328,10 @@ export default function Home() {
           </h2>
           <div className="grid md:grid-cols-2 gap-8 md:gap-12">
             <div>
-              <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-6">Let's Work Together</h3>
+              <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-6">Let&apos;s Work Together</h3>
               <p className="text-base md:text-lg mb-6 md:mb-8 leading-relaxed">
                 Interested in collaborating on a Web3 project? Need expert crypto consultancy? 
-                Looking for a co-founder or technical lead? Let's discuss how we can bring 
+                Looking for a co-founder or technical lead? Let&apos;s discuss how we can bring 
                 your vision to life.
               </p>
               <div className="space-y-4">
@@ -257,53 +375,134 @@ export default function Home() {
               </div>
             </div>
             <div className="bg-slate-800/50 p-6 md:p-8 rounded-xl">
-              <form className="space-y-4 md:space-y-6">
-                <div>
-                  <label className="block text-sm font-medium mb-2">Name</label>
-                  <input 
-                    type="text" 
-                    className="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-4 py-3 focus:outline-none focus:border-cyan-400 transition text-sm md:text-base"
-                    placeholder="Your full name"
-                  />
+              {/* Form Status Messages */}
+              {formStatus === 'success' && (
+                <div className="mb-6 p-4 bg-green-500/20 border border-green-500/30 rounded-lg">
+                  <p className="text-green-400 font-medium">{formMessage}</p>
+                  <button 
+                    onClick={() => setFormStatus('idle')}
+                    className="mt-2 text-sm text-green-300 hover:text-green-200"
+                  >
+                    Send another message
+                  </button>
                 </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2">Email</label>
-                  <input 
-                    type="email" 
-                    className="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-4 py-3 focus:outline-none focus:border-cyan-400 transition text-sm md:text-base"
-                    placeholder="your.email@domain.com"
-                  />
+              )}
+
+              {formStatus === 'error' && (
+                <div className="mb-6 p-4 bg-red-500/20 border border-red-500/30 rounded-lg">
+                  <p className="text-red-400 font-medium">{formMessage}</p>
+                  <button 
+                    onClick={() => setFormStatus('idle')}
+                    className="mt-2 text-sm text-red-300 hover:text-red-200"
+                  >
+                    Try again
+                  </button>
                 </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2">Service Interested In</label>
-                  <select className="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-4 py-3 focus:outline-none focus:border-cyan-400 transition text-sm md:text-base">
-                    <option>Web3 Development</option>
-                    <option>AI Solutions</option>
-                    <option>Crypto Consultancy</option>
-                    <option>Co-Founding Role</option>
-                    <option>Forex & Crypto Trading</option>
-                    <option>Web Development</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2">Message</label>
-                  <textarea 
-                    rows={4}
-                    className="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-4 py-3 focus:outline-none focus:border-cyan-400 transition text-sm md:text-base"
-                    placeholder="Tell me about your project or inquiry..."
-                  ></textarea>
-                </div>
-                <button 
-                  type="submit"
-                  className="w-full bg-cyan-600 hover:bg-cyan-700 py-3 rounded-lg font-semibold transition-all text-sm md:text-base"
+              )}
+
+              {formStatus !== 'success' && (
+                <form 
+                  onSubmit={handleSubmit}
+                  className="space-y-4 md:space-y-6"
                 >
-                  Send Message
-                </button>
-              </form>
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium mb-2">
+                      Name
+                    </label>
+                    <input 
+                      type="text" 
+                      id="name"
+                      name="name"
+                      required
+                      disabled={formStatus === 'submitting'}
+                      className="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-4 py-3 focus:outline-none focus:border-cyan-400 transition text-sm md:text-base disabled:opacity-50 disabled:cursor-not-allowed"
+                      placeholder="Your full name"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium mb-2">
+                      Email
+                    </label>
+                    <input 
+                      type="email" 
+                      id="email"
+                      name="email"
+                      required
+                      disabled={formStatus === 'submitting'}
+                      className="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-4 py-3 focus:outline-none focus:border-cyan-400 transition text-sm md:text-base disabled:opacity-50 disabled:cursor-not-allowed"
+                      placeholder="your.email@domain.com"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="service" className="block text-sm font-medium mb-2">
+                      Service Interested In
+                    </label>
+                    <select 
+                      id="service"
+                      name="service"
+                      required
+                      disabled={formStatus === 'submitting'}
+                      className="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-4 py-3 focus:outline-none focus:border-cyan-400 transition text-sm md:text-base disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      <option value="">Select a service...</option>
+                      <option value="Web3 Development">Web3 Development</option>
+                      <option value="AI Solutions">AI Solutions</option>
+                      <option value="Crypto Consultancy">Crypto Consultancy</option>
+                      <option value="Co-Founding Role">Co-Founding Role</option>
+                      <option value="Forex & Crypto Trading">Forex & Crypto Trading</option>
+                      <option value="Web Development">Web Development</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-medium mb-2">
+                      Message
+                    </label>
+                    <textarea 
+                      id="message"
+                      name="message"
+                      rows={4}
+                      required
+                      disabled={formStatus === 'submitting'}
+                      className="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-4 py-3 focus:outline-none focus:border-cyan-400 transition text-sm md:text-base disabled:opacity-50 disabled:cursor-not-allowed"
+                      placeholder="Tell me about your project or inquiry..."
+                    ></textarea>
+                  </div>
+                  <button 
+                    type="submit"
+                    disabled={formStatus === 'submitting'}
+                    className="w-full bg-cyan-600 hover:bg-cyan-700 disabled:bg-cyan-800 disabled:cursor-not-allowed py-3 rounded-lg font-semibold transition-all text-sm md:text-base flex items-center justify-center gap-2"
+                  >
+                    {formStatus === 'submitting' ? (
+                      <>
+                        <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Sending...
+                      </>
+                    ) : (
+                      'Send Message'
+                    )}
+                  </button>
+                </form>
+              )}
             </div>
           </div>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="py-8 px-4 bg-slate-900/50 border-t border-slate-700">
+        <div className="container mx-auto max-w-4xl text-center">
+          <p className="text-blue-300 text-sm md:text-base">
+            &copy; {new Date().getFullYear()} Ebong Eric Etoe. All rights reserved.
+          </p>
+          <p className="text-slate-500 text-xs md:text-sm mt-2">
+            Web3 Innovator | AI Developer | Crypto Consultant
+          </p>
+        </div>
+      </footer>
     </main>
   );
 }
