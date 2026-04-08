@@ -64,7 +64,7 @@ export default function Home() {
             Ebong Eric <span className="text-cyan-400">Etoe</span>
           </h1>
           <p className="text-lg md:text-xl lg:text-2xl mb-6 md:mb-8 text-blue-200 font-light">
-            Web3 Innovator | AI Developer | Strategic Leader
+            Web3 Innovator | Full Stack Dev | Strategic Leader
           </p>
           <p className="text-base md:text-lg max-w-2xl mx-auto leading-relaxed mb-8 md:mb-0">
             Co-Founder & Lead Developer at Luminix, building AI-powered Web3 solutions 
