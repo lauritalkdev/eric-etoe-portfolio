@@ -2,8 +2,10 @@
 
 import Image from 'next/image'
 import { useState, FormEvent } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function Home() {
+  const router = useRouter()
   const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
   const [formMessage, setFormMessage] = useState('')
   const [showComingSoon, setShowComingSoon] = useState(false)
@@ -40,10 +42,8 @@ export default function Home() {
   }
 
   const handleViewWork = () => {
-    setShowComingSoon(true)
-    // Auto-hide the message after 5 seconds
-    setTimeout(() => setShowComingSoon(false), 5000)
-  }
+  router.push('/portfolio')
+}
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-900 to-blue-950 text-white">
