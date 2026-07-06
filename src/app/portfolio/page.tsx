@@ -13,6 +13,14 @@ const projects = [
     description: 'AI-powered translation app supporting 150+ languages including African dialects.'
   },
   {
+    title: 'Dessetra',
+    category: 'Website',
+    image: '/projects/dessetra/cover.png',
+    link: '/portfolio/dessetra',
+    live: 'https://www.dessetra.com',
+    description: 'Crypto education, investment and referral platform.'
+  },
+  {
     title: 'Luminix',
     category: 'Website',
     image: '/projects/luminix/cover.png',
