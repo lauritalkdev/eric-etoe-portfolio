@@ -64,6 +64,12 @@ const screenshots = [
   },
 ];
 
+const whatsappMessage = encodeURIComponent(
+  "Hi Eric, I saw the Lumora Wallet project on your portfolio. I have a Web3, blockchain or decentralized product I'd like to discuss with you."
+);
+
+const whatsappUrl = `https://wa.me/237693066656?text=${whatsappMessage}`;
+
 export default function LumoraCaseStudy() {
   return (
     <main className="min-h-screen bg-slate-900 pb-20 pt-28 text-white">
@@ -381,7 +387,7 @@ export default function LumoraCaseStudy() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* Conversion CTA */}
       <section className="px-6">
         <div className="mx-auto max-w-5xl rounded-3xl border border-cyan-500/20 bg-gradient-to-br from-slate-800 to-slate-900 px-6 py-12 text-center md:px-12 md:py-16">
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-cyan-400">
@@ -393,17 +399,28 @@ export default function LumoraCaseStudy() {
           </h2>
 
           <p className="mx-auto mb-8 max-w-2xl text-lg leading-relaxed text-slate-300">
-            I&apos;m open to Web3 development, blockchain products, technical
-            partnerships and selected venture opportunities.
+            Whether you&apos;re building a wallet, blockchain platform,
+            decentralized application or another Web3 product, I&apos;m open
+            to development, technical partnerships and selected venture
+            opportunities.
           </p>
 
-          <div className="flex flex-col justify-center gap-4 sm:flex-row">
+          <div className="flex flex-col justify-center gap-4 sm:flex-row sm:flex-wrap">
             <Link
               href="/#contact"
               className="rounded-lg bg-cyan-500 px-7 py-3 font-semibold text-slate-950 transition hover:bg-cyan-400"
             >
               Start a Conversation
             </Link>
+
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-lg bg-green-600 px-7 py-3 font-semibold text-white transition hover:bg-green-500"
+            >
+              Contact on WhatsApp
+            </a>
 
             <Link
               href="/portfolio"

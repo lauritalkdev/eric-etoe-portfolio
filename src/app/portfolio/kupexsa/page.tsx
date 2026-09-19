@@ -54,6 +54,12 @@ const screenshots = [
   },
 ];
 
+const whatsappMessage = encodeURIComponent(
+  "Hi Eric, I saw the KUPEXSA Connect project on your portfolio. I have a similar community or membership platform I'd like to discuss with you."
+);
+
+const whatsappUrl = `https://wa.me/237693066656?text=${whatsappMessage}`;
+
 export default function KupexsaCaseStudy() {
   return (
     <main className="min-h-screen bg-slate-900 pb-20 pt-28 text-white">
@@ -140,7 +146,7 @@ export default function KupexsaCaseStudy() {
         </div>
       </section>
 
-      {/* Overview */}
+      {/* Challenge / Solution */}
       <section className="mt-24 border-y border-slate-800 bg-slate-950/40 px-6 py-20">
         <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2">
           <div>
@@ -229,9 +235,15 @@ export default function KupexsaCaseStudy() {
               Platform Experience
             </p>
 
-            <h2 className="text-3xl font-bold md:text-4xl">
+            <h2 className="mb-4 text-3xl font-bold md:text-4xl">
               A closer look at KUPEXSA Connect
             </h2>
+
+            <p className="max-w-3xl leading-relaxed text-slate-300">
+              A look at the digital experience built to make alumni
+              participation, account access and community activities easier
+              to manage.
+            </p>
           </div>
 
           <div className="grid gap-8 lg:grid-cols-3">
@@ -287,7 +299,7 @@ export default function KupexsaCaseStudy() {
         </div>
       </section>
 
-      {/* Status / Result */}
+      {/* Status */}
       <section className="px-6 pb-24">
         <div className="mx-auto max-w-7xl rounded-3xl border border-emerald-500/20 bg-slate-800 p-8 md:p-12">
           <div className="grid items-center gap-10 lg:grid-cols-[1fr_auto]">
@@ -320,7 +332,7 @@ export default function KupexsaCaseStudy() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* Conversion CTA */}
       <section className="px-6">
         <div className="mx-auto max-w-5xl rounded-3xl border border-cyan-500/20 bg-gradient-to-br from-slate-800 to-slate-900 px-6 py-12 text-center md:px-12 md:py-16">
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-cyan-400">
@@ -332,18 +344,27 @@ export default function KupexsaCaseStudy() {
           </h2>
 
           <p className="mx-auto mb-8 max-w-2xl text-lg leading-relaxed text-slate-300">
-            Whether it&apos;s a community platform, business system, AI
-            product or Web3 application, I&apos;m open to development and
-            technical partnership opportunities.
+            Whether you need a community platform, membership system, business
+            application or another digital product, I&apos;m open to
+            development and technical partnership opportunities.
           </p>
 
-          <div className="flex flex-col justify-center gap-4 sm:flex-row">
+          <div className="flex flex-col justify-center gap-4 sm:flex-row sm:flex-wrap">
             <Link
               href="/#contact"
               className="rounded-lg bg-cyan-500 px-7 py-3 font-semibold text-slate-950 transition hover:bg-cyan-400"
             >
               Start a Conversation
             </Link>
+
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-lg bg-green-600 px-7 py-3 font-semibold text-white transition hover:bg-green-500"
+            >
+              Contact on WhatsApp
+            </a>
 
             <Link
               href="/portfolio"
