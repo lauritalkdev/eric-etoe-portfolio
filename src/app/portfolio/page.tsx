@@ -47,6 +47,7 @@ const projects: Project[] = [
     tags: ["Community Tech", "Alumni", "Web Platform"],
     status: "LIVE",
     image: "/projects/kupexsa/cover.png",
+    link: "/portfolio/kupexsa",
     live: "https://www.kupexsa.org",
     liveLabel: "Visit Platform",
     description:
@@ -59,6 +60,7 @@ const projects: Project[] = [
     tags: ["Web3", "DeFi", "Multi-Chain Wallet"],
     status: "IN DEVELOPMENT",
     image: "/projects/lumora/cover.png",
+    link: "/portfolio/lumora",
     description:
       "A decentralized multi-chain wallet being built to support 14 major blockchain networks, token management and same-chain and cross-chain swaps.",
     role: "Product Architecture • Full-Stack Web3 Development",
