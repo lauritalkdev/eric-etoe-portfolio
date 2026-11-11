@@ -1,7 +1,13 @@
+
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Inter } from "next/font/google";
+import dynamic from "next/dynamic";
 import "./globals.css";
+
+const PortfolioChatbot = dynamic(
+  () => import("@/components/PortfolioChatbot")
+);
 
 const inter = Inter({
   subsets: ["latin"],
@@ -242,6 +248,9 @@ export default function RootLayout({
         </nav>
 
         {children}
+
+        {/* Floating Project Exploration AI Assistant */}
+        <PortfolioChatbot />
 
         {/* Mobile Navigation Behaviour */}
         <script
